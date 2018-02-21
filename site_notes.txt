@@ -1,0 +1,10 @@
+to get the image stuff working:
+brew install imagemagic (this step may not be needed)
+pip install python-magic
+brew install libmagic
+
+SCRATCH ALL THAT
+python-magic is a pretty lame package and doesnt do much but reads basic file meta datainstead have to use pgmagic
+
+brew install graphicsmagick
+pip install pgmagick
