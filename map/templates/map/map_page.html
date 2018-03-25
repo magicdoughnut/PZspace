@@ -43,9 +43,13 @@
 
 	</br>
 		<li v-for="item in items">
-			<button id="change-image" @click="loadImage(item.fields.image)">[[item.fields.date]]</button></br>
+			<button id="change-image" @click="loadImage(item.fields.image,item.fields.ww3)">[[item.fields.date]]</button></br>
 		</li>
 	</br>
+
+	<button id="ww3" @click="showww3()">turn on WW3 data</button></br>
+
+
 
 </div>
 </div>

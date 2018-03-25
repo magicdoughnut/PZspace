@@ -5,6 +5,7 @@ new Vue({
     el: '#app',
     data: {
         items: null,
+        ww3: false,
     },
     methods: {
         getJson: function(){
@@ -14,21 +15,42 @@ new Vue({
                 console.log(error.statusText);
             });
         },
-        loadImage: function (imageloc) {
+        loadImage: function (imageloc,ww3data) {
             console.log(imageloc)
             var imageUrl = imageloc,
             imageBounds = [[49.53173120782476,-5.764099],[50.545333158635955,-4.2730713]],
             image = L.imageOverlay(imageUrl, imageBounds);
+            map.removeLayer(image);
+            image.addTo(map);
 
-              if (map.hasLayer(image)) {
-                map.removeLayer(image);
-                this.imagetext1 = null
+            if (this.ww3 == true) {
+                ww3dataJson = JSON.parse(ww3data)
+                if (typeof ww3layer === 'undefined'){}
+                else{map.removeLayer(ww3layer);
+                    console.log('SHOULD BE REMOViNG LAYER')};                
+                ww3layer = L.geoJSON(ww3dataJson, {
+                    style: function(feature) {
+                        return {
+                        color: feature.properties['stroke'],
+                            };
+                        }
+                    });
+                ww3layer.addTo(map);
+                // var myLayer = L.geoJSON().addTo(map);
+                // myLayer.addData(ww3data);
+
+            }
+        },
+        showww3: function(){
+            if (this.ww3 == false) {
+                this.ww3 = true;
                 }
             else {
-                image.addTo(map);
-                this.imagetext1 = 'Sentinel2 image <br> Date:  10/01/2018 <br> Time:11:24:31 <br> Cloudcover:  05%'
+                this.ww3 = false;
+                map.removeLayer(ww3layer);
+
             }
-        }, 
+        },
     },
     beforeMount(){
         this.getJson();
